@@ -7,7 +7,7 @@ const Sidebar = () => {
 
     const {pathname} = useLocation()
     const [userName, setUserName] = useState()
-    const [mobileOpen, setMobileOpen] = useState()
+    const [mobileOpen, setMobileOpen] = useState(false)
 
     useEffect(() => {
         setUserName(dummyProfileData.firstName + " " + dummyProfileData.lastName)
@@ -18,7 +18,7 @@ const Sidebar = () => {
         setMobileOpen(false)
     }, [pathname])
 
-    const role = "" || "EMPLOYEE";
+    const role = "ADMIN" || "EMPLOYEE";
     const navItems = [
         {name: "Dashboard", herf: "/dashboard", icon: LayoutGridIcon},
         role === "ADMIN" ?
@@ -80,7 +80,7 @@ const Sidebar = () => {
             {navItems.map((item) => {
                 const isActive = pathname.startsWith(item.herf)
                 return (
-                    <Link key={item.name} to={item.herf} className={`group flex items-center gap-3 px-3 py-2.5 rounded-md text-[13px] font-medium transition-all duration-150 relative ${isActive ? "bg-indigo-500/12 text-indigp-300" : "text-slate-300 hover:text-white hover:bg-white/4"}`}>
+                    <Link key={item.name} to={item.herf} className={`group flex items-center gap-3 px-3 py-2.5 rounded-md text-[13px] font-medium transition-all duration-150 relative ${isActive ? "bg-indigo-500/12 text-indigo-300" : "text-slate-300 hover:text-white hover:bg-white/4"}`}>
                         {isActive && <div className='absolute left-0 top-1/2 -translate-y-1/2 w-0.75 h-5 rounded-r-full bg-indigo-500'/>}
                         <item.icon className={`w-4.25 h-4.25 shrink-0 ${isActive ? "text-indigo-300": "text-slate-400 group-hover:text-slate-300"}`} />
                         <span className="flex-1">{item.name}</span>
@@ -103,7 +103,7 @@ const Sidebar = () => {
   return (
     <>
     {/* hamburger button */}
-    <button onClick={() => setMobileOpen(ture)} className='lg:hidden fixed top-4 left-4 z-50 p-2 bg-slate-900 text-white rounded-lg shadow-lg border border-white/10'>
+    <button onClick={() => setMobileOpen(true)} className='lg:hidden fixed top-4 left-4 z-50 p-2 bg-slate-900 text-white rounded-lg shadow-lg border border-white/10'>
         <MenuIcon size={20}/>
     </button>
 
@@ -116,7 +116,7 @@ const Sidebar = () => {
     </aside>
 
     {/* Mobile Sidebar */}
-    <aside className={`lg:hidden fixed inset-y-0 left-0 w-72 bg-linear=to-b from-slate-900 via-slate-900 to-slate-950 text-white z-50 flex flex-col transform transition-transform duration-300 ${mobileOpen? "translate-x-0" : "translate-x-full"}`}>
+    <aside className={`lg:hidden fixed inset-y-0 left-0 w-72 bg-linear-to-b from-slate-900 via-slate-900 to-slate-950 text-white z-50 flex flex-col transform transition-transform duration-300 ${mobileOpen? "translate-x-0" : "-translate-x-full"}`}>
         {sidebarContent}
     </aside>
     </>
